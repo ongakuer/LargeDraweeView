@@ -41,12 +41,13 @@ dependencies {
     implementation "androidx.exifinterface:exifinterface:$exifinterface_version"
     implementation "com.google.android.flexbox:flexbox:$flexbox_version"
     implementation "com.google.android.material:material:$material_version"
-    
+
     implementation "com.facebook.fresco:fresco:$fresco_version"
     implementation "com.facebook.fresco:animated-gif:$fresco_version"
 
     implementation 'me.relex:circleindicator:2.1.6'
-
+    //    implementation 'me.relex:large-drawee-view:1.0.2'
+    //    implementation 'com.davemorrissey.labs:subsampling-scale-image-view-androidx:3.10.0'
     implementation project(':largeimage')
     implementation project(':subscaleview')
 }

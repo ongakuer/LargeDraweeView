@@ -2,6 +2,7 @@ plugins {
     id 'com.android.library'
     id 'org.jetbrains.kotlin.android'
     id 'org.jetbrains.kotlin.plugin.parcelize'
+    id 'com.vanniktech.maven.publish'
 }
 
 android {
@@ -36,12 +37,48 @@ dependencies {
     implementation "androidx.exifinterface:exifinterface:$exifinterface_version"
     implementation "com.facebook.fresco:fresco:$fresco_version"
     compileOnly "com.facebook.fresco:animated-gif:$fresco_version"
-    //    compileOnly 'me.relex:subsampling-scale-image-view:3.10.1'
     compileOnly project(':subscaleview')
 }
 
 ext {
-    PUBLISH_GROUP_ID = "me.relex"
-    PUBLISH_ARTIFACT_ID = "LargeDraweeView"
-    PUBLISH_VERSION = "1.0.0"
+    PUBLISH_VERSION = "1.0.2"
 }
+
+//// Upload Maven
+//import com.vanniktech.maven.publish.AndroidSingleVariantLibrary
+//import com.vanniktech.maven.publish.SonatypeHost
+//
+//mavenPublishing {
+//    configure(new AndroidSingleVariantLibrary("release", true, true))
+//
+//    publishToMavenCentral(SonatypeHost.CENTRAL_PORTAL)
+//    signAllPublications()
+//
+//    coordinates("me.relex", "large-drawee-view", project.ext.PUBLISH_VERSION)
+//
+//    pom {
+//        name = "LargeDraweeView"
+//        description = "Large image display widget for Fresco"
+//        inceptionYear = "2024"
+//        url = "https://github.com/ongakuer/LargeDraweeView"
+//        licenses {
+//            license {
+//                name = "The Apache License, Version 2.0"
+//                url = "http://www.apache.org/licenses/LICENSE-2.0.txt"
+//                distribution = "http://www.apache.org/licenses/LICENSE-2.0.txt"
+//            }
+//        }
+//        developers {
+//            developer {
+//                id = "$sonatypeUsername"
+//                name = "Relex"
+//                url = "https://github.com/ongakuer"
+//            }
+//        }
+//        scm {
+//            url = "https://github.com/ongakuer/LargeDraweeView"
+//            connection = "scm:git:git://github.com/ongakuer/LargeDraweeView.git"
+//            developerConnection = "scm:git:ssh://git@github.com:ongakuer/LargeDraweeView.git"
+//        }
+//    }
+//}

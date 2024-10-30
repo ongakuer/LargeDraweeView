@@ -1,5 +1,6 @@
 plugins {
     id 'com.android.library'
+    id 'com.vanniktech.maven.publish'
 }
 
 android {
@@ -25,7 +26,44 @@ dependencies {
 }
 
 ext {
-    PUBLISH_GROUP_ID = "me.relex"
-    PUBLISH_ARTIFACT_ID = "subsampling-scale-image-view"
     PUBLISH_VERSION = "3.10.1"
 }
+
+
+
+//// Upload Maven
+//import com.vanniktech.maven.publish.AndroidSingleVariantLibrary
+//import com.vanniktech.maven.publish.SonatypeHost
+//
+//mavenPublishing {
+//    configure(new AndroidSingleVariantLibrary("release", true, true))
+//
+//    publishToMavenCentral(SonatypeHost.CENTRAL_PORTAL)
+//    signAllPublications()
+//
+//    coordinates("me.relex", "subsampling-scale-image-view", project.ext.PUBLISH_VERSION)
+//
+//    pom {
+//        name = "Subsampling Scale Image View"
+//        description = "Fork From https://github.com/davemorrissey/subsampling-scale-image-view"
+//        url = "https://github.com/davemorrissey/subsampling-scale-image-view"
+//        licenses {
+//            license {
+//                name = "The Apache License, Version 2.0"
+//                url = "http://www.apache.org/licenses/LICENSE-2.0.txt"
+//                distribution = "http://www.apache.org/licenses/LICENSE-2.0.txt"
+//            }
+//        }
+//        developers {
+//            developer {
+//                id = "relex"
+//                name = "$mavenCentralUsername"
+//            }
+//        }
+//        scm {
+//            url = "https://github.com/ongakuer/LargeDraweeView"
+//            connection = "scm:git:git://github.com/ongakuer/LargeDraweeView.git"
+//            developerConnection = "scm:git:ssh://git@github.com:ongakuer/LargeDraweeView.git"
+//        }
+//    }
+//}

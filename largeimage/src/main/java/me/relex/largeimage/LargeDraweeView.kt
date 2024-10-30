@@ -23,6 +23,7 @@ import com.facebook.imageformat.ImageFormat
 import com.facebook.imagepipeline.image.ImageInfo
 import com.facebook.imagepipeline.request.ImageRequest
 import com.facebook.imagepipeline.request.ImageRequestBuilder
+import kotlin.math.max
 import kotlin.math.min
 
 class LargeDraweeView @JvmOverloads constructor(
@@ -38,6 +39,9 @@ class LargeDraweeView @JvmOverloads constructor(
     private var _imageRequestListener: ImageRequestListener? = null
     private var _scaleValueHook: ScaleValueHook? = null
     private var _scaleImageOnStateChangedListener: SubsamplingScaleImageView.OnStateChangedListener? = null
+
+    private var _fitCenterScale = 0f
+    private var _fitCenterPoint: PointF? = null
 
     private var _longImageAnimation = false
     private var _longImageRatio = LONG_IMAGE_RATIO
@@ -257,16 +261,11 @@ class LargeDraweeView @JvmOverloads constructor(
         }
     }
 
-    private var fitCenterScale = 0f
-    private var fitCenterPoint: PointF? = null
-
-    private var longScale = 0f
-    private var longMaxScale = 0f
-    private var longCenterPoint: PointF? = null
-
     private fun resetScaleImageScaleAndCenter() {
-        _scaleImageView.minScale = fitCenterScale
-        val animationBuilder = _scaleImageView.animateScaleAndCenter(fitCenterScale, fitCenterPoint)
+        _scaleImageView.minScale = _fitCenterScale
+        val animationBuilder = _scaleImageView.animateScaleAndCenter(
+            _fitCenterScale, _fitCenterPoint
+        )
         if (animationBuilder != null) {
             animationBuilder.withInterruptible(false).withDuration(_animationDuration.toLong())
                 .start()
@@ -275,31 +274,11 @@ class LargeDraweeView @JvmOverloads constructor(
         }
     }
 
-    private fun animateLongImageScale() {
-        if (longScale == 0f || longMaxScale == 0f || longCenterPoint == null) {
-            return
-        }
-
-        val animationBuilder = _scaleImageView.animateScaleAndCenter(longScale, longCenterPoint)
-        if (animationBuilder != null && _longImageAnimation) {
-            animationBuilder.withInterruptible(false).withDuration(_animationDuration.toLong())
-                .withOnAnimationEventListener(object :
-                    SubsamplingScaleImageView.DefaultOnAnimationEventListener() {
-                    override fun onComplete() {
-                        _scaleImageView.minScale = longScale
-                        _scaleImageView.maxScale = longMaxScale
-                        _scaleImageView.setDoubleTapZoomScale(longMaxScale)
-                    }
-                }).start()
-        } else {
-            _scaleImageView.minScale = longScale
-            _scaleImageView.maxScale = longMaxScale
-            _scaleImageView.setDoubleTapZoomScale(longMaxScale)
-            _scaleImageView.setScaleAndCenter(longScale, longCenterPoint)
-        }
-    }
-
     private inner class InternalScaleEventListener : ScaleImageEventListenerAdapter() {
+        private var _longScale = 0f
+        private var _longMaxScale = 0f
+        private var _longCenterPoint: PointF? = null
+
         override fun onReady() {
             val viewWidth = _scaleImageView.width
             val viewHeight = _scaleImageView.height
@@ -322,50 +301,49 @@ class LargeDraweeView @JvmOverloads constructor(
             val scaleValueHook = _scaleValueHook
 
             if (scaleValueHook != null) {
-                fitCenterScale = scaleValueHook.getMinScale()
-                fitCenterPoint = scaleValueHook.getCenter()
                 scaleValueHook.initializeValue(imageWidth, imageHeight, viewWidth, viewHeight)
-
+                _fitCenterScale = scaleValueHook.getMinScale()
+                _fitCenterPoint = scaleValueHook.getCenter()
                 _scaleImageView.minScale = scaleValueHook.getMinScale()
                 _scaleImageView.maxScale = scaleValueHook.getMaxScale()
+                _scaleImageView.setDoubleTapZoomScale(scaleValueHook.getDoubleTapScale())
                 _scaleImageView.setScaleAndCenter(
                     scaleValueHook.getMinScale(), scaleValueHook.getCenter()
                 )
-                _scaleImageView.setDoubleTapZoomScale(scaleValueHook.getMaxScale())
                 return
             }
 
             val widthScale = viewWidth.toFloat() / imageWidth
             val heightScale = viewHeight.toFloat() / imageHeight
+
             // Fit_center
-            var minScale: Float
-            var maxScale: Float
+            val minScale = min(widthScale, heightScale)
+            val maxScale = max(minScale * 4f, 2f)
+            val doubleTapScale = minScale * 2f
+            val fitCenterPoint = PointF(imageWidth / 2f, imageHeight / 2f)
+            _fitCenterScale = minScale
+            _fitCenterPoint = fitCenterPoint
 
-            minScale = min(widthScale, heightScale)
-            maxScale = minScale * 2f
-
-            fitCenterScale = minScale
-            fitCenterPoint = PointF(imageWidth / 2f, imageHeight / 2f)
-
-            _scaleImageView.minScale = fitCenterScale
+            _scaleImageView.minScale = minScale
             _scaleImageView.maxScale = maxScale
-            _scaleImageView.setScaleAndCenter(fitCenterScale, fitCenterPoint)
-            _scaleImageView.setDoubleTapZoomScale(maxScale)
+            _scaleImageView.setDoubleTapZoomScale(doubleTapScale)
+            _scaleImageView.setScaleAndCenter(minScale, fitCenterPoint)
 
             if (imageHeight.toFloat() / imageWidth > _longImageRatio && imageWidth > _longImageMinWidth) {
-                val defaultScale = if (imageWidth <= imageHeight) {
+                val longScale = if (imageWidth <= imageHeight) {
                     viewWidth.toFloat() / imageWidth
                 } else {
                     viewHeight.toFloat() / imageHeight
                 }
-                longScale = defaultScale
-                longMaxScale = defaultScale * 2f
-                longCenterPoint = PointF(imageWidth / 2f, 0f)
-                _scaleImageView.maxScale = longMaxScale
+                _longScale = longScale
+                _longMaxScale = max(longScale * 4, 2f)
+                _longCenterPoint = PointF(imageWidth / 2f, 0f)
+                _scaleImageView.maxScale = _longMaxScale
+                _scaleImageView.setDoubleTapZoomScale(longScale * 2f)
             } else {
-                longScale = 0f
-                longMaxScale = 0f
-                longCenterPoint = null
+                _longScale = 0f
+                _longMaxScale = 0f
+                _longCenterPoint = null
             }
         }
 
@@ -375,6 +353,32 @@ class LargeDraweeView @JvmOverloads constructor(
             _imageRequestListener?.onImageLoaded()
             animateLongImageScale()
             _currentTargetView = _scaleImageView
+        }
+
+        private fun animateLongImageScale() {
+            if (_longScale == 0f || _longMaxScale == 0f || _longCenterPoint == null) {
+                return
+            }
+
+            val animationBuilder = _scaleImageView.animateScaleAndCenter(
+                _longScale, _longCenterPoint
+            )
+            if (animationBuilder != null && _longImageAnimation) {
+                animationBuilder.withInterruptible(false).withDuration(_animationDuration.toLong())
+                    .withOnAnimationEventListener(object :
+                        SubsamplingScaleImageView.DefaultOnAnimationEventListener() {
+                        override fun onComplete() {
+                            _scaleImageView.minScale = _longScale
+                            _scaleImageView.maxScale = _longMaxScale
+                            _scaleImageView.setDoubleTapZoomScale(_longScale * 2f)
+                        }
+                    }).start()
+            } else {
+                _scaleImageView.minScale = _longScale
+                _scaleImageView.maxScale = _longMaxScale
+                _scaleImageView.setDoubleTapZoomScale(_longScale * 2f)
+                _scaleImageView.setScaleAndCenter(_longScale, _longCenterPoint)
+            }
         }
     }
 
@@ -420,6 +424,8 @@ class LargeDraweeView @JvmOverloads constructor(
         fun getMinScale(): Float
 
         fun getMaxScale(): Float
+
+        fun getDoubleTapScale(): Float
 
         fun getCenter(): PointF
     }
