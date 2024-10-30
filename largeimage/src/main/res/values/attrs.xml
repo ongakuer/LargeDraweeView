@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <declare-styleable name="LargeImageAttrs">
+        <attr name="enter_duration" format="integer" />
+        <attr name="exit_duration" format="integer" />
+    </declare-styleable>
+
+    <declare-styleable name="LargeDraweeView">
+        <attr name="exit_duration" />
+        <attr name="show_loading" format="boolean" />
+        <attr name="loading_view_provider" format="string" />
+        <attr name="enable_pull_down_gesture" format="boolean" />
+        <attr name="long_image_animation" format="boolean" />
+        <attr name="long_image_ratio" format="float" />
+        <attr name="long_image_min_width" format="integer" />
+    </declare-styleable>
+
+    <declare-styleable name="TransitionLayout">
+        <attr name="enter_duration" />
+        <attr name="exit_duration" />
+    </declare-styleable>
+
+</resources>

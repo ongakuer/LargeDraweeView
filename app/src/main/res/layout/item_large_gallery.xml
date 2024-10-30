@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<me.relex.largeimage.LargeDraweeView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:enable_pull_down_gesture="true"
+    app:exit_duration="300"
+    app:loading_view_provider=".loading.ImageLoadingViewProvider"
+    app:long_image_animation="true"
+    app:show_loading="true" />

@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/toolbar_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:navigationIcon="@drawable/ic_menu_48"
+        app:title="LargeDraweeView">
+
+
+    </com.google.android.material.appbar.MaterialToolbar>
+
+
+    <androidx.drawerlayout.widget.DrawerLayout
+        android:id="@+id/drawer_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="?actionBarSize">
+
+        <me.relex.largeimage.LargeDraweeView
+            android:id="@+id/large_drawee_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:loading_view_provider=".loading.TextViewProvider"
+            app:show_loading="true" />
+
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="start"
+            android:fillViewport="true">
+
+            <LinearLayout
+                android:id="@+id/menu_layout"
+                android:layout_width="240dp"
+                android:layout_height="wrap_content"
+                android:background="?colorSurfaceContainer"
+                android:orientation="vertical"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp">
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginBottom="10dp"
+                    android:text="Samples"
+                    android:textAppearance="@style/TextAppearance.Material3.LabelMedium" />
+
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/web_view"
+                    style="@style/Widget.Material3.Button.TextButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Web Image" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/long_view"
+                    style="@style/Widget.Material3.Button.TextButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Long Image" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/animated_view"
+                    style="@style/Widget.Material3.Button.TextButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Animated Image\n(disable zoom)" />
+
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/content_uri_view"
+                    style="@style/Widget.Material3.Button.TextButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Content Uri Image" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/resource_view"
+                    style="@style/Widget.Material3.Button.TextButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Resource Image" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/assets_view"
+                    style="@style/Widget.Material3.Button.TextButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Assets Image" />
+
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginBottom="10dp"
+                    android:text="Photo Hero Animations"
+                    android:textAppearance="@style/TextAppearance.Material3.LabelMedium" />
+
+
+                <com.facebook.drawee.view.SimpleDraweeView
+                    android:id="@+id/photo_hero_view"
+                    android:layout_width="200dp"
+                    android:layout_height="100dp"
+                    app:actualImageScaleType="centerCrop"
+                    app:placeholderImage="@drawable/bg_placeholder"
+                    app:roundedCornerRadius="10dp" />
+
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginBottom="10dp"
+                    android:text="Gallery Hero Animations"
+                    android:textAppearance="@style/TextAppearance.Material3.LabelMedium" />
+
+                <LinearLayout
+                    android:id="@+id/gallery_hero_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <com.facebook.drawee.view.SimpleDraweeView
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
+                        app:actualImageScaleType="centerCrop"
+                        app:placeholderImage="@drawable/bg_placeholder"
+                        app:roundedCornerRadius="10dp" />
+
+                    <Space
+                        android:layout_width="10dp"
+                        android:layout_height="wrap_content" />
+
+                    <com.facebook.drawee.view.SimpleDraweeView
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
+                        app:actualImageScaleType="centerCrop"
+                        app:placeholderImage="@drawable/bg_placeholder"
+                        app:roundedCornerRadius="10dp" />
+
+                    <Space
+                        android:layout_width="10dp"
+                        android:layout_height="wrap_content" />
+
+                    <com.facebook.drawee.view.SimpleDraweeView
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
+                        app:actualImageScaleType="centerCrop"
+                        app:placeholderImage="@drawable/bg_placeholder"
+                        app:roundedCornerRadius="10dp" />
+
+                </LinearLayout>
+
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/clean_cache_view"
+                    style="@style/Widget.Material3.Button.TextButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginBottom="20dp"
+                    android:text="Clean Fresco Cache"
+                    android:textColor="?colorError" />
+
+            </LinearLayout>
+        </androidx.core.widget.NestedScrollView>
+    </androidx.drawerlayout.widget.DrawerLayout>
+</FrameLayout>

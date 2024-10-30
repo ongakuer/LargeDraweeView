@@ -1,0 +1,1 @@
+-keep class * implements me.relex.largeimage.LoadingViewProvider

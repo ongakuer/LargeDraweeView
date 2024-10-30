@@ -1,0 +1,52 @@
+plugins {
+    id 'com.android.application'
+    id 'org.jetbrains.kotlin.android'
+    id 'org.jetbrains.kotlin.plugin.parcelize'
+}
+
+android {
+    namespace 'me.relex.sample.largeimage'
+
+    compileSdk 35
+    defaultConfig {
+        applicationId 'me.relex.sample.largeimage'
+        minSdk 21
+        targetSdk 35
+        versionCode 1
+        versionName '1.0'
+    }
+
+    buildFeatures {
+        viewBinding true
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_11
+        targetCompatibility JavaVersion.VERSION_11
+    }
+    kotlinOptions {
+        jvmTarget = JavaVersion.VERSION_11
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+
+    implementation "androidx.appcompat:appcompat:$appcompat_version"
+    implementation "androidx.exifinterface:exifinterface:$exifinterface_version"
+    implementation "com.google.android.flexbox:flexbox:$flexbox_version"
+    implementation "com.google.android.material:material:$material_version"
+    
+    implementation "com.facebook.fresco:fresco:$fresco_version"
+    implementation "com.facebook.fresco:animated-gif:$fresco_version"
+
+    implementation 'me.relex:circleindicator:2.1.6'
+
+    implementation project(':largeimage')
+    implementation project(':subscaleview')
+}
