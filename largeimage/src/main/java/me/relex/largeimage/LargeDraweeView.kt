@@ -115,7 +115,7 @@ class LargeDraweeView @JvmOverloads constructor(
         }
         addView(_draweeView, LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT)
 
-        // Top Loading , Loading
+        // Top Layer , Loading
         val loadingViewProvider = _loadingViewProvider
         if (_enableInternalLoading && loadingViewProvider != null) {
             val loadingView = loadingViewProvider.createLoadingView(context, this).apply {
