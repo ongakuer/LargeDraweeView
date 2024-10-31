@@ -8,9 +8,11 @@
 
 因为大部分情况下 App 会使用云存储（OSS）来加载远程图片，通常在信息流中使用 OSS 处理过的小图，点击图片后再加载原图查看。这样才是合理的使用网络资源和手机内存。
 
-[SubscaleView](<(https://github.com/davemorrissey/subsampling-scale-image-view)>) 在图片缩放和 BitmapRegionDecoder 方面足够优秀，只需要处理好 Fresco 图片缓存使用和整合的交互体验即可。实际上 LargeDraweeView 已经在我们 App 中使用了很多年，基本上与微信，微博等图片查看的交互体验很相似。
+·[SubscaleView](<(https://github.com/davemorrissey/subsampling-scale-image-view)>) 在图片缩放和 BitmapRegionDecoder 方面足够优秀，只需要处理好 Fresco 图片缓存使用和整合的交互体验即可。
 
--   在 Hero 动画方面，使用 Activity/Fragment + TransitionLayout 比 Activity + [ChangeImageTransform](https://developer.android.com/develop/ui/views/animations/transitions/start-activity) 等侵入性和兼容性要更好（特别是多图查看情况）
+实际上 LargeDraweeView 已经在我们 App 中使用了很多年，基本上与微信，微博等图片查看的交互体验很相似
+
+-   在 Hero 动画方面，使用 Activity/Fragment + [TransitionLayout](largeimage/src/main/java/me/relex/largeimage/TransitionLayout.kt) 比 Activity + [ChangeImageTransform](https://developer.android.com/develop/ui/views/animations/transitions/start-activity) 等低侵入性和兼容性要更好（特别是多图查看情况）
 
 -   长图自适应处理，满足条件时会计算缩放，让图片默认从上到下滚动查看
 
@@ -20,7 +22,7 @@
 
 -   额外的下拉手势退出
 
-因为在内部很早就使用，早期需要用“魔法”处理沉浸式状态栏/导航栏，后退返回监听等。 不过随着后来 WindowInsetsControllerCompat， OnBackPressedDispatcher 出现也就是逐渐通用了起来。
+因为在内部很早就使用，早期需要用“魔法”处理沉浸式状态栏/导航栏，后退返回监听等。 不过随着后来 `WindowInsetsControllerCompat`， `OnBackPressedDispatcher` 出现，这个控件也就逐渐通用了起来。
 
 前段时间 Fresco 发布新版 3.4.0，调整了文件缓存的调用，想着便重新用 kotlin 改写一下项目并开源出来。
 
@@ -37,14 +39,13 @@ implementation('me.relex:large-drawee-view:1.0.2')
 ### XML
 
 ```xml
-
-<me.relex.largeimage.LargeDraweeView 
+<me.relex.largeimage.LargeDraweeView
     android:id="@+id/image_view"
-    android:layout_width="match_parent" 
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:show_loading="true"
     app:loading_view_provider=".loading.ImageLoadingViewProvider"
-    app:enable_pull_down_gesture="true" 
+    app:enable_pull_down_gesture="true"
     app:exit_duration="300"
     app:long_image_animation="true" />
 ```
@@ -93,7 +94,7 @@ LargeDraweeView 内部原理很简单，只是 3 个 View 的包装
 
 举一反三的话，如果是使用 glide、coil 等其他图片库也很方便就能移植使用。
 
-TransitionLayout 实现的 Hero 过渡效果，我觉得参考 LargePhotoActivity 和 LargeGalleryActivity 调整就能放到生成环境中使用。
+TransitionLayout 实现的 Hero 过渡效果，我觉得参考 [LargePhotoActivity](app/src/main/java/me/relex/sample/largeimage/hero/LargePhotoActivity.kt) 和 [LargeGalleryActivity](app/src/main/java/me/relex/sample/largeimage/hero/LargeGalleryActivity.kt) 调整就能放到生成环境中使用。
 
 ## 预览图
 
