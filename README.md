@@ -2,9 +2,13 @@
 
 ![Maven Central Version](https://img.shields.io/maven-central/v/me.relex/large-drawee-view)
 
-[中文](README.zh.md)
+## Preview
 
-## Preface
+| Hero animations                                                                                        | Long image                                                                                        |
+| ------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------- |
+| ![img](https://raw.githubusercontent.com/ongakuer/LargeDraweeView/main/screenshot/hero-animations.gif) | ![img](https://raw.githubusercontent.com/ongakuer/LargeDraweeView/main/screenshot/long-image.gif) |
+
+## English | [中文](README.zh.md)
 
 Several years ago, I created the [PhotoDraweeView](https://github.com/ongakuer/PhotoDraweeView) project, but it was not suitable in the production environment, more like a demo for learning gesture zooming.
 
@@ -82,7 +86,7 @@ largeDraweeView.load(info)
 | sharedTransitionRect | Shared element rect, used with TransitionLayout (optional)                                     |
 | imageSize            | Original image dimensions for calculated shared element, used with TransitionLayout (optional) |
 
-### Principles
+## Principles
 
 LargeDraweeView is a ViewGroup that combines the features of 3 Views.
 
@@ -92,18 +96,8 @@ Middle layer: Fresco PreviewDraweeView, for low-resolution preview and animated 
 
 Bottom layer: SubscaleView
 
-When loading a web image, LoadingView and PreviewDraweeView are displayed first. At the same time, `FrescoImageLoader` is used to query Fresco’s file cache or handle downloading.And then, it provides a file for SubscaleView. Finally, LoadingView and PreviewDraweeView are hidden
+When loading a web image, LoadingView and PreviewDraweeView are displayed first. At the same time, `FrescoImageLoader` is used to query Fresco’s file cache or handle downloading. And then, it provides a file for SubscaleView. Finally, LoadingView and PreviewDraweeView are hidden.
 
 If you wish to adapt it to other image libraries such as Glide or Coil, it may be easy to accomplish.
 
 The Hero animations implemented by TransitionLayout can refer to [LargePhotoActivity](app/src/main/java/me/relex/sample/largeimage/hero/LargePhotoActivity.kt) and [LargeGalleryActivity](app/src/main/java/me/relex/sample/largeimage/hero/LargeGalleryActivity.kt). Basically, it can be used in the production environment.
-
-## Screenshot
-
-### Hero animations
-
-![img](https://raw.githubusercontent.com/ongakuer/LargeDraweeView/main/screenshot/hero-animations.gif)
-
-### Long image
-
-![img](https://raw.githubusercontent.com/ongakuer/LargeDraweeView/main/screenshot/long-image.gif)

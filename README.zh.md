@@ -2,7 +2,13 @@
 
 ![Maven Central Version](https://img.shields.io/maven-central/v/me.relex/large-drawee-view)
 
-## 前言
+## 预览
+
+| Hero 动画效果                                                                                          | 长图显示                                                                                          |
+| ------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------- |
+| ![img](https://raw.githubusercontent.com/ongakuer/LargeDraweeView/main/screenshot/hero-animations.gif) | ![img](https://raw.githubusercontent.com/ongakuer/LargeDraweeView/main/screenshot/long-image.gif) |
+
+## [English](README.md) | 中文
 
 多年前我写过一个 [PhotoDraweeView](https://github.com/ongakuer/PhotoDraweeView) 项目，但并没有投入到生成环境中，更像一个学习手势缩放的 Demo。
 
@@ -80,7 +86,7 @@ largeDraweeView.load(info)
 | sharedTransitionRect | 共享元素位置，配合 TransitionLayout（可选）             |
 | imageSize            | 共享元素提前计算原图宽高，配合 TransitionLayout（可选） |
 
-### 原理
+## 原理
 
 LargeDraweeView 内部原理很简单，只是 3 个 View 的包装
 
@@ -95,13 +101,3 @@ LargeDraweeView 内部原理很简单，只是 3 个 View 的包装
 举一反三的话，如果是使用 glide、coil 等其他图片库也很方便就能移植使用。
 
 TransitionLayout 实现的 Hero 过渡效果，我觉得参考 [LargePhotoActivity](app/src/main/java/me/relex/sample/largeimage/hero/LargePhotoActivity.kt) 和 [LargeGalleryActivity](app/src/main/java/me/relex/sample/largeimage/hero/LargeGalleryActivity.kt) 调整就能放到生成环境中使用。
-
-## 预览图
-
-### Hero 动画效果
-
-![img](https://raw.githubusercontent.com/ongakuer/LargeDraweeView/main/screenshot/hero-animations.gif)
-
-### 长图显示
-
-![img](https://raw.githubusercontent.com/ongakuer/LargeDraweeView/main/screenshot/long-image.gif)
