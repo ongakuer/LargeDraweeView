@@ -8,7 +8,7 @@
 
 因为大部分情况下 App 会使用云存储（OSS）来加载远程图片，通常在信息流中使用 OSS 处理过的小图，点击图片后再加载原图查看。这样才是合理的使用网络资源和手机内存。
 
-·[SubscaleView](<(https://github.com/davemorrissey/subsampling-scale-image-view)>) 在图片缩放和 BitmapRegionDecoder 方面足够优秀，只需要处理好 Fresco 图片缓存使用和整合的交互体验即可。
+[SubscaleView](https://github.com/davemorrissey/subsampling-scale-image-view) 在图片缩放和 BitmapRegionDecoder 方面足够优秀，只需要处理好 Fresco 图片缓存使用和整合的交互体验即可。
 
 实际上 LargeDraweeView 已经在我们 App 中使用了很多年，基本上与微信，微博等图片查看的交互体验很相似
 

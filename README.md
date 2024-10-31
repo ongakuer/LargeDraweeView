@@ -10,7 +10,7 @@ Several years ago, I created the [PhotoDraweeView](https://github.com/ongakuer/P
 
 In most cases, Apps use Cloud Object Storage Service (OSS) to load web images. Usually, small images (processed by OSS) are displayed in App Feeds, The original image is loaded only after being clicked. This is a reasonable way to use network resources and mobile memory.
 
-[SubscaleView](<(https://github.com/davemorrissey/subsampling-scale-image-view)>) is excellent in terms of image zooming and BitmapRegionDecoder. We only need to integrate Fresco's image cache and user interaction experience.
+[SubscaleView](https://github.com/davemorrissey/subsampling-scale-image-view) is excellent in terms of image zooming and BitmapRegionDecoder. We only need to integrate Fresco's image cache and user interaction experience.
 
 In fact, LargeDraweeView has been used in our app for many years, Its user interaction experience for viewing images is basically similar to that of WeChat and Weibo.
 
