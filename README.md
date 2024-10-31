@@ -2,6 +2,8 @@
 
 ![Maven Central Version](https://img.shields.io/maven-central/v/me.relex/large-drawee-view)
 
+[中文](README.zh.md)
+
 Use [Fresco](https://github.com/facebook/fresco) to load images and provide cached images for [subsampling-scale-image-view](https://github.com/davemorrissey/subsampling-scale-image-view) to render large images
 
 
