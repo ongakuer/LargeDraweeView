@@ -38,11 +38,15 @@ implementation('me.relex:large-drawee-view:1.0.2')
 
 ```xml
 
-<me.relex.largeimage.LargeDraweeView android:id="@+id/image_view"
-    android:layout_width="match_parent" android:layout_height="match_parent"
-    app:enable_pull_down_gesture="true" app:exit_duration="300"
-    app:loading_view_provider=".loading.ImageLoadingViewProvider" app:long_image_animation="true"
-    app:show_loading="true" />
+<me.relex.largeimage.LargeDraweeView 
+    android:id="@+id/image_view"
+    android:layout_width="match_parent" 
+    android:layout_height="match_parent"
+    app:show_loading="true"
+    app:loading_view_provider=".loading.ImageLoadingViewProvider"
+    app:enable_pull_down_gesture="true" 
+    app:exit_duration="300"
+    app:long_image_animation="true" />
 ```
 
 | LargeDraweeView          | 说明                                       |
